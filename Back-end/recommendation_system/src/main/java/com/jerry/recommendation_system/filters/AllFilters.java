@@ -3,6 +3,7 @@ package com.jerry.recommendation_system.filters;
 import java.util.ArrayList;
 
 public class AllFilters implements Filter {
+
     ArrayList<Filter> filters;
     
     public AllFilters() {

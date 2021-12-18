@@ -1,19 +1,23 @@
 package com.jerry.recommendation_system.filters;
 
-import Movie.MovieDatabase;
+import com.jerry.recommendation_system.model.Movie;
+import com.jerry.recommendation_system.repository.MovieRepository;
 
 public class DirectorsFilter implements Filter {
+
     String directors;
+    MovieRepository movieRepository;
 
     public DirectorsFilter(String directors) {
         this.directors = directors;
     }
 
     @Override
-    public boolean satisfies(String id) {
+    public boolean satisfies(Long id) {
         String[] directorsSplit = directors.split(",");
+        Movie movie = movieRepository.getById(id);
         for (String s : directorsSplit) {
-            if (MovieDatabase.getDirector(id).contains(s)) {
+            if (movie.getDirector().contains(s)) {
                 return true;
             }
         }
