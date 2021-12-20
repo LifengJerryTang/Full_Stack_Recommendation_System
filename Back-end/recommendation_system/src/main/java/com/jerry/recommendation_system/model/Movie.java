@@ -1,86 +1,71 @@
 package com.jerry.recommendation_system.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Table
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Movie {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Nationalized
     private String title;
 
+    @JsonProperty
     private int year;
+
+    @JsonProperty
     private String genres;
+
+    @JsonProperty
     private String director;
+
+    @JsonProperty
     private String country;
+
+    @JsonProperty
     private String poster;
+
+    @JsonProperty
     private int minutes;
 
-    public Movie(Long anID, String aTitle, String aYear, String theGenres) {
-        // just in case data file contains extra whitespace
-        id = anID;
-        title = aTitle.trim();
-        year = Integer.parseInt(aYear.trim());
-        genres = theGenres;
+    @OneToOne
+    @JsonProperty
+    private Rating rating;
+
+    public Movie(String title, int year, String genres, String director, String country, String poster, int minutes) {
+        this.title = title;
+        this.year = year;
+        this.genres = genres;
+        this.director = director;
+        this.country = country;
+        this.poster = poster;
+        this.minutes = minutes;
     }
 
-    public Movie(Long anID, String aTitle, String aYear, String theGenres, String aDirector,
-                 String aCountry, String aPoster, int theMinutes) {
-        // just in case data file contains extra whitespace
-        id = anID;
-        title = aTitle.trim();
-        year = Integer.parseInt(aYear.trim());
-        genres = theGenres;
-        director = aDirector;
-        country = aCountry;
-        poster = aPoster;
-        minutes = theMinutes;
-    }
-
-    public Long getID () {
-        return id;
-    }
-
-    public String getTitle () {
-        return title;
-    }
-
-    public int getYear () {
-        return year;
-    }
-
-    public String getGenres () {
-        return genres;
-    }
-
-    public String getCountry(){
-        return country;
-    }
-
-    public String getDirector(){
-        return director;
-    }
-
-    public String getPoster(){
-        return poster;
-    }
-
-    public int getMinutes(){
-        return minutes;
-    }
-
-    public String toString () {
-        String result = "Movie.Movie [id=" + id + ", title=" + title + ", year=" + year;
-        result += ", genres= " + genres + "]";
-        return result;
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", year=" + year +
+                ", genres='" + genres + '\'' +
+                ", director='" + director + '\'' +
+                ", country='" + country + '\'' +
+                ", poster='" + poster + '\'' +
+                ", minutes=" + minutes +
+                '}';
     }
 }

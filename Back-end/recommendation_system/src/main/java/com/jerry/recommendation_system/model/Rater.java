@@ -1,16 +1,23 @@
 package com.jerry.recommendation_system.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table
+@Getter
+@Setter
 public class Rater {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -24,51 +31,19 @@ public class Rater {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "rater", cascade = CascadeType.ALL)
     private List<Rating> myRatings;
 
-    public Rater(Long id) {
-        this.id = id;
-    }
-
-
-//    public boolean hasRating(String item) {
-//        return myRatings.containsKey(item);
-//    }
-
-    public Long getID() {
-        return id;
-    }
-
-//    public double getRating(String item) {
-//
-//        if (hasRating(item)) {
-//            return this.myRatings.get(item).getValue();
-//        }
-//
-//        return -1;
-//
-//    }
-
-    public int numRatings() {
-        return myRatings.size();
-    }
-
-//    public ArrayList<String> getItemsRated() {
-//        return new ArrayList<>(this.myRatings.keySet());
-//    }
-
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
+    public Rater(String username, String password) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
+        this.myRatings = new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "Rater{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", myRatings=" + myRatings +
+                '}';
     }
 }
