@@ -2,11 +2,15 @@ package com.jerry.recommendation_system.filters;
 
 import com.jerry.recommendation_system.model.Movie;
 import com.jerry.recommendation_system.repository.MovieRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GenreFilter implements Filter {
 
     private String genre;
-    private MovieRepository repository;
+    @Autowired
+    MovieRepository movieRepository;
 
     public GenreFilter(String genre) {
         this.genre = genre;
@@ -14,7 +18,7 @@ public class GenreFilter implements Filter {
 
     @Override
     public boolean satisfies(Long id) {
-        Movie movie = repository.getById(id);
+        Movie movie = movieRepository.getById(id);
         return movie.getGenres().contains(this.genre);
     }
 }

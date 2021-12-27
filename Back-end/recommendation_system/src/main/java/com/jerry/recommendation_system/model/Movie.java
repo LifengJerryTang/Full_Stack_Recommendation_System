@@ -45,7 +45,9 @@ public class Movie {
     @JsonProperty
     private Rating rating;
 
-    public Movie(String title, int year, String genres, String director, String country, String poster, int minutes) {
+    public Movie(String title, int year, String genres,
+                 String director, String country,
+                 String poster, int minutes) {
         this.title = title;
         this.year = year;
         this.genres = genres;
