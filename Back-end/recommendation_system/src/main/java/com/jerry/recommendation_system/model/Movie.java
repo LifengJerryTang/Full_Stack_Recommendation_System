@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table
 @Entity
@@ -41,9 +42,9 @@ public class Movie {
     @JsonProperty
     private int minutes;
 
-    @OneToOne
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "movieItem", cascade = CascadeType.ALL)
     @JsonProperty
-    private Rating rating;
+    List<Rating> ratings;
 
     public Movie(String title, int year, String genres,
                  String director, String country,

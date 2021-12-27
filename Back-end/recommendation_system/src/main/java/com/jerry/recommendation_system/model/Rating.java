@@ -23,7 +23,8 @@ public class Rating implements Comparable<Rating> {
     private Rater rater;
 
     @JsonProperty
-    @OneToOne
+    @JoinColumn(name = "movie_id")
+    @ManyToOne
     private Movie movieItem;
 
     private double value;

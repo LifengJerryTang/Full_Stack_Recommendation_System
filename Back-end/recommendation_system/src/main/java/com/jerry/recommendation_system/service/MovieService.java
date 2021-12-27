@@ -18,25 +18,29 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    public Movie getMovieById(Long id) {
+    public Movie findMovieById(Long id) {
         return movieRepository.getById(id);
     }
 
-    public Movie getMovieByTitle(String title) {
+    public Movie findMovieByTitle(String title) {
         return movieRepository.findByTitle(title);
     }
 
-    public List<Movie> findByCategory(Filter filter, Long id) {
+    public List<Movie> findMovieByCategory(Filter filter, Long id) {
         return movieRepository.findAll().stream().filter(movie -> filter.satisfies(id))
                 .collect(Collectors.toList());
     }
 
-    public List<Movie> findByCountry(String country) {
+    public List<Movie> findMovieByCountry(String country) {
         return movieRepository.findAll().stream().filter(movie -> movie.getCountry().equals(country))
                 .collect(Collectors.toList());
     }
 
-    public Movie addMovie(Movie movie) {
+    public Movie saveMovie(Movie movie) {
         return movieRepository.save(movie);
+    }
+
+    public void deleteMovie(Long id) {
+        movieRepository.deleteById(id);
     }
 }

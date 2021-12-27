@@ -20,5 +20,12 @@ public class RaterService {
         return raterRepository.findByUsername(username);
     }
 
+    public Rater saveRater(Rater rater) {
+        return raterRepository.save(rater);
+    }
+
+    public void deleteRater(Long id) {
+        raterRepository.deleteById(id);
+    }
 
 }
