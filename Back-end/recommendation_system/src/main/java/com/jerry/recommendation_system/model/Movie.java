@@ -71,4 +71,8 @@ public class Movie {
                 ", minutes=" + minutes +
                 '}';
     }
+
+    public void addRating(Rating rating) {
+        this.ratings.add(rating);
+    }
 }

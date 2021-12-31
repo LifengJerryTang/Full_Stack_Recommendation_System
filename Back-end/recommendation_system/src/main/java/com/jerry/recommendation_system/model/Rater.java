@@ -46,4 +46,8 @@ public class Rater {
                 ", myRatings=" + myRatings +
                 '}';
     }
+
+    public void addRating(Rating rating) {
+        this.myRatings.add(rating);
+    }
 }

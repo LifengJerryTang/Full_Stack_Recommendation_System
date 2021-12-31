@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class MovieService {
 
-    @Autowired
     private MovieRepository movieRepository;
 
     public Movie findMovieById(Long id) {
