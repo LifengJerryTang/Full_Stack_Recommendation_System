@@ -25,12 +25,12 @@ public class MovieService {
         return movieRepository.findByTitle(title);
     }
 
-    public List<Movie> findMovieByCategory(Filter filter, Long id) {
-        return movieRepository.findAll().stream().filter(movie -> filter.satisfies(id))
+    public List<Movie> findMoviesByCategory(Filter filter) {
+        return movieRepository.findAll().stream().filter(movie -> filter.satisfies(movie.getId()))
                 .collect(Collectors.toList());
     }
 
-    public List<Movie> findMovieByCountry(String country) {
+    public List<Movie> findMoviesByCountry(String country) {
         return movieRepository.findAll().stream().filter(movie -> movie.getCountry().equals(country))
                 .collect(Collectors.toList());
     }

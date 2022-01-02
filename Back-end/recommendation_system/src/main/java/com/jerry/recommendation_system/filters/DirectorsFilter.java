@@ -5,23 +5,24 @@ import com.jerry.recommendation_system.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class DirectorsFilter implements Filter {
 
-    String directors;
+    List<String> directors;
 
     @Autowired
     MovieRepository movieRepository;
 
-    public DirectorsFilter(String directors) {
+    public DirectorsFilter(List<String> directors) {
         this.directors = directors;
     }
 
     @Override
     public boolean satisfies(Long id) {
-        String[] directorsSplit = directors.split(",");
         Movie movie = movieRepository.getById(id);
-        for (String s : directorsSplit) {
+        for (String s : directors) {
             if (movie.getDirector().contains(s)) {
                 return true;
             }
