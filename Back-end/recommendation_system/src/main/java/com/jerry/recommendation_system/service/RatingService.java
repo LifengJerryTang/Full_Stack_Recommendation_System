@@ -22,8 +22,10 @@ public class RatingService {
     @Autowired
     RatingRepository ratingRepository;
 
+    @Autowired
     MovieRepository movieRepository;
 
+    @Autowired
     RaterRepository raterRepository;
 
     public Rating findRatingById(Long id) {

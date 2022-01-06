@@ -7,7 +7,7 @@ import com.jerry.recommendation_system.filters.YearAfterFilter;
 import com.jerry.recommendation_system.model.Movie;
 import com.jerry.recommendation_system.service.MovieService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,15 +17,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/movie")
 public class MovieController {
 
+    @Autowired
     MovieService movieService;
-
-    @PostMapping
-    public MovieDTO saveMovie(@RequestBody MovieDTO movieDTO) {
-        Movie newMovie = convertMovieDTOToMovie(movieDTO);
-        movieService.saveMovie(newMovie);
-
-        return convertMovieToMovieDTO(newMovie);
-    }
 
     @GetMapping("/{id}")
     public MovieDTO getMovieById(@PathVariable Long id) {
@@ -54,6 +47,27 @@ public class MovieController {
         return movieService.findMoviesByCategory(new DirectorsFilter(directors))
                 .stream().map(this::convertMovieToMovieDTO).collect(Collectors.toList());
     }
+
+    @GetMapping
+    public List<MovieDTO> getAllMovies() {
+        return movieService.findAllMovies().stream().map(this::convertMovieToMovieDTO)
+                .collect(Collectors.toList());
+    }
+
+    @PostMapping("/{id}/delete")
+    public void deleteMovieById(@PathVariable Long id) {
+        movieService.deleteMovie(id);
+    }
+
+    @PostMapping
+    public MovieDTO saveMovie(@RequestBody MovieDTO movieDTO) {
+        Movie newMovie = convertMovieDTOToMovie(movieDTO);
+        movieService.saveMovie(newMovie);
+
+        return convertMovieToMovieDTO(newMovie);
+    }
+
+
 
     public MovieDTO convertMovieToMovieDTO(Movie movie) {
         MovieDTO movieDTO = new MovieDTO();

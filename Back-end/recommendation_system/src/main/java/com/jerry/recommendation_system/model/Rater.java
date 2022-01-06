@@ -14,6 +14,7 @@ import java.util.List;
 @Table
 @Getter
 @Setter
+@NoArgsConstructor
 public class Rater {
 
     @Id
@@ -31,7 +32,8 @@ public class Rater {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "rater", cascade = CascadeType.ALL)
     private List<Rating> myRatings;
 
-    public Rater(String username, String password) {
+    public Rater(Long id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.myRatings = new ArrayList<>();
