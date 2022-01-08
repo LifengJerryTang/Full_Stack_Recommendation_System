@@ -12,7 +12,7 @@ public class RatingDTO {
     private String raterUsername;
 
     @JsonProperty
-    private String item;
+    private String movieName;
 
     @JsonProperty
     private double value;

@@ -54,11 +54,6 @@ public class MovieController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/{id}/delete")
-    public void deleteMovieById(@PathVariable Long id) {
-        movieService.deleteMovie(id);
-    }
-
     @PostMapping
     public MovieDTO saveMovie(@RequestBody MovieDTO movieDTO) {
         Movie newMovie = convertMovieDTOToMovie(movieDTO);
@@ -67,7 +62,10 @@ public class MovieController {
         return convertMovieToMovieDTO(newMovie);
     }
 
-
+    @PostMapping("/{id}/delete")
+    public void deleteMovieById(@PathVariable Long id) {
+        movieService.deleteMovie(id);
+    }
 
     public MovieDTO convertMovieToMovieDTO(Movie movie) {
         MovieDTO movieDTO = new MovieDTO();

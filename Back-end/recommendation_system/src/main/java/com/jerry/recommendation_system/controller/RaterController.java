@@ -1,14 +1,11 @@
 package com.jerry.recommendation_system.controller;
 
-import com.jerry.recommendation_system.DTO.MovieDTO;
 import com.jerry.recommendation_system.DTO.RaterDTO;
-import com.jerry.recommendation_system.model.Movie;
 import com.jerry.recommendation_system.model.Rater;
 import com.jerry.recommendation_system.service.RaterService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +34,12 @@ public class RaterController {
 
     @PostMapping
     public RaterDTO saveRater(@RequestBody RaterDTO raterDTO) {
+        return convertRaterToRaterDTO(raterService.saveRater(convertRaterDTOToRater(raterDTO)));
+    }
 
+    @PostMapping("/{id}/delete")
+    public void deleteRaterById(@PathVariable Long id) {
+        raterService.deleteRater(id);
     }
 
     public RaterDTO convertRaterToRaterDTO(Rater rater) {

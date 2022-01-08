@@ -1,6 +1,7 @@
 package com.jerry.recommendation_system.service;
 
 import com.jerry.recommendation_system.exception.MovieNotFoundException;
+import com.jerry.recommendation_system.exception.RaterNotFoundException;
 import com.jerry.recommendation_system.exception.RatingNotFoundException;
 import com.jerry.recommendation_system.model.Movie;
 import com.jerry.recommendation_system.model.Rater;
@@ -55,15 +56,20 @@ public class RatingService {
         return optionalRater.get().getMyRatings();
     }
 
-    public Rating saveRating(Rating rating, Long raterId, Long movieId) {
-        Movie movie = movieRepository.getById(movieId);
-        Optional<Rater> optionalRater = raterRepository.findById(raterId);
+    public Rating saveRating(Rating rating, String raterUsername,  String movieName) {
+        Optional<Movie> optionalMovie = movieRepository.findByTitle(movieName);
+        Optional<Rater> optionalRater = raterRepository.findByUsername(raterUsername);
 
         if (!optionalRater.isPresent()) {
-            throw new MovieNotFoundException("Rater with id of " + raterId + " does not exists!");
+            throw new RaterNotFoundException("Rater with the username of " + raterUsername + " does not exists!");
+        }
+
+        if (!optionalMovie.isPresent()) {
+            throw new MovieNotFoundException("Movie named " + movieName + " does not exists!");
         }
 
         Rater rater = optionalRater.get();
+        Movie movie = optionalMovie.get();
 
         movie.addRating(rating);
         rater.addRating(rating);
